@@ -2,6 +2,10 @@ node {
   stage('Checkout') {
     checkout scm
   }
+  
+  stage('lint') {   
+    sh 'docker run -i --rm projectatomic/dockerfile-lint dockerfile_lint -f /dev/stdin < Dockerfile'
+  }
 
   stage('Build') {
     withCredentials([
